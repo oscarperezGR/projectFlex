@@ -1,7 +1,4 @@
-# projectFlex
-
-
-## Galeria Responsive Con Flexbox
+# Galeria Responsive Con Flexbox
 
 Este proyecto es una practica sencilla de HTML y CSS usando Flexbox. El objetivo es crear una galeria de imagenes que se adapte a diferentes tamanos de pantalla, desde moviles hasta ordenadores.
 
@@ -20,18 +17,33 @@ Este comportamiento se consigue usando Flexbox en CSS.
 
 ## Estructura Basica Del HTML
 
-El HTML contiene una seccion principal con la clase `galeria`. Dentro de esa seccion van las imagenes.
+El HTML contiene un elemento `main` con la clase `galeria`. Dentro de ese `main` hay varios `div`. Cada `div` funciona como una tarjeta y contiene una imagen y un texto.
 
 ```html
-<section class="galeria">
-  <img src="imageGrid/imgPesas.jpg" alt="Imagen de pesas">
-  <img src="imageGrid/imgShoes.avif" alt="Imagen de zapatos">
-  <img src="imageGrid/gymHome3.png" alt="Gimnasio en casa">
-  <img src="imageGrid/imgGym.jpg" alt="Imagen de gimnasio">
-</section>
+<main class="galeria">
+  <div>
+    <img src="imageFlex/imgMontainUtah.jpg" alt="Montain Utah">
+    <p>Montana Utah</p>
+  </div>
+
+  <div>
+    <img src="imageFlex/imgSierraNevada.jpg" alt="Sierra Nevada">
+    <p>Sierra Nevada</p>
+  </div>
+
+  <div>
+    <img src="imageFlex/mountainTop.jpg" alt="Montana">
+    <p>Montana</p>
+  </div>
+
+  <div>
+    <img src="imageFlex/imgMontainMex.jpg" alt="Montain Mexico">
+    <p>Montana Mexico</p>
+  </div>
+</main>
 ```
 
-La clase `galeria` se utiliza en CSS para aplicar Flexbox al contenedor.
+La clase `galeria` se utiliza en CSS para aplicar Flexbox al contenedor principal.
 
 ## Codigo CSS Principal
 
@@ -51,13 +63,13 @@ La clase `galeria` se utiliza en CSS para aplicar Flexbox al contenedor.
 display: flex;
 ```
 
-Activa Flexbox. Esto hace que las imagenes se coloquen una al lado de la otra.
+Activa Flexbox. Esto hace que los `div` que estan dentro de la galeria se coloquen uno al lado del otro.
 
 ```css
 flex-wrap: wrap;
 ```
 
-Permite que las imagenes bajen a otra fila cuando no caben en la misma linea.
+Permite que las tarjetas bajen a otra fila cuando no caben en la misma linea.
 
 ```css
 gap: 20px;
@@ -77,11 +89,28 @@ margin: 40px auto;
 
 Agrega espacio arriba y abajo, y centra la galeria horizontalmente.
 
+## Estilos Para Las Tarjetas
+
+```css
+.galeria div {
+  flex: 1 1 250px;
+}
+```
+
+Este selector significa: aplicar estilos a todos los `div` que esten dentro de un elemento con la clase `galeria`.
+
+## Explicacion De Las Tarjetas
+
+```css
+flex: 1 1 250px;
+```
+
+Indica que cada tarjeta puede crecer, puede encogerse y tiene un tamano base de `250px`.
+
 ## Estilos Para Las Imagenes
 
 ```css
 .galeria img {
-  flex: 1 1 250px;
   width: 100%;
   height: 220px;
   object-fit: cover;
@@ -90,21 +119,15 @@ Agrega espacio arriba y abajo, y centra la galeria horizontalmente.
 }
 ```
 
-Este selector significa: aplicar estilos a todas las imagenes que esten dentro de un elemento con la clase `galeria`.
+Este selector significa: aplicar estilos a todas las imagenes que esten dentro de la galeria.
 
 ## Explicacion De Las Imagenes
-
-```css
-flex: 1 1 250px;
-```
-
-Indica que cada imagen puede crecer, puede encogerse y tiene un tamano base de `250px`.
 
 ```css
 width: 100%;
 ```
 
-Hace que la imagen ocupe todo el ancho disponible dentro de su espacio.
+Hace que la imagen ocupe todo el ancho disponible dentro de su tarjeta.
 
 ```css
 height: 220px;
@@ -136,7 +159,6 @@ Si se quiere que todas las imagenes tengan exactamente la misma anchura, se pued
 
 ```css
 .galeria img {
-  flex: 0 0 250px;
   width: 250px;
   height: 220px;
   object-fit: cover;
@@ -144,13 +166,25 @@ Si se quiere que todas las imagenes tengan exactamente la misma anchura, se pued
 }
 ```
 
-La parte mas importante es:
+Pero si se esta usando una tarjeta con `div`, lo mejor es controlar la anchura desde el `div`:
 
 ```css
-flex: 0 0 250px;
+.galeria div {
+  flex: 0 0 250px;
+}
 ```
 
-Esto significa que la imagen no crece, no se encoge y mantiene una anchura base de `250px`.
+Y luego hacer que la imagen ocupe todo el ancho de esa tarjeta:
+
+```css
+.galeria img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+```
+
+Esto significa que la tarjeta no crece, no se encoge y mantiene una anchura base de `250px`.
 
 ## Adaptacion A Moviles
 
@@ -158,14 +192,13 @@ Para que en moviles cada imagen ocupe todo el ancho disponible, se puede usar un
 
 ```css
 @media (max-width: 600px) {
-  .galeria img {
+  .galeria div {
     flex: 0 0 100%;
-    width: 100%;
   }
 }
 ```
 
-Esto significa que cuando la pantalla mida `600px` o menos, cada imagen ocupara una fila completa.
+Esto significa que cuando la pantalla mida `600px` o menos, cada tarjeta ocupara una fila completa.
 
 ## Objetivo Del Proyecto
 
